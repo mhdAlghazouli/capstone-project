@@ -23,7 +23,7 @@ const Follow = ({ data }) => {
       const FollowRes = await response.json();
       console.log(FollowRes)
       alert(`${loginUser.userName} now following ${id}`)
-      document.getElementById("followBtn").textContent = "unFollow";
+      
     }
   
 

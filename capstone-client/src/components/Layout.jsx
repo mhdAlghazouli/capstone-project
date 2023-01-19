@@ -17,7 +17,12 @@ const Layout = () => {
       method: "GET",
     });
     const usersRes = await response.json();
-    setUsersData(usersRes.user.filter(user => loginUser.id !== user.id))
+    if(loginUser){
+
+      setUsersData(usersRes.user.filter(user => loginUser.id !== user.id))
+    }else{
+      return ;
+    }
    }
    useEffect( () => {
     handleClick()

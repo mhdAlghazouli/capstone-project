@@ -11,35 +11,45 @@ router.post("/", async (req, res, next) => {
 
 //follows get route
 router.get("/", async (req,res, next) => {
-  const follows = await Follows.findAll({
-    include:[
-      {
-        model: User,
-        as: "follower",
-        attributes: ["firstName", "lastName", "userName", "email"],
-        include: [
+
+ 
+   let follows = await Follows.findAll({
+      
+        include:[
           {
-            model: Posts,
-            attributes: ["id","image","textContent","userId"]
-          }
-        ]
-      },
-      {
-        model: User,
-        as: "followed",
-        attributes: ["firstName", "lastName", "userName", "email"],
-        include: [
+            model: User,
+            as: "follower",
+            attributes: ["firstName", "lastName", "userName", "email"],
+            include: [
+              {
+                model: Posts,
+                attributes: ["id","image","textContent","userId"],
+                order: [["createdAt", "DESC"]]
+              }
+            ]
+          },
           {
-            model: Posts,
-            attributes: ["id","image","textContent","userId"]
+            model: User,
+            as: "followed",
+            attributes: ["firstName", "lastName", "userName", "email"],
+            include: [
+              {
+                model: Posts,
+                attributes: ["id","image","textContent","userId"],
+                order: [["createdAt", "DESC"]]
+              }
+            ]
           }
-        ]
+        ],
+      
+      order: [["createdAt", "DESC"]]
+      })
+      if(follows.length === 0){
+         follows = await Posts.findAll()
+        
       }
-    ],
-    order: [["createdAt", "DESC"]]
-  })
-  await res.json(follows)
-})
+      await res.json(follows)
+    })
 
 //unFollow route
 router.delete("/:id", async (req,res,next) => {

@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Post } from "./Post";
 import FollowSection from "./FollowSection";
-import usePostsFetch from "../helpers/postsFetch";
 import FollowedGetPosts from "./FollowedGetPosts";
 
 const Profile =  () => {
@@ -26,6 +25,7 @@ const Profile =  () => {
       setData(userRes)
     }) 
   }
+  console.log(postsData)
   // get followed fetch
   async function handleGetFollow() {
     console.log("useFollow fetch")
@@ -41,9 +41,10 @@ const Profile =  () => {
       method: "GET",
     });
     const postsRes = await response.json();
+   
     setPostsData(postsRes)
   }
-  
+  console.log(postsData)
   useEffect(() => {
     handleSubmit()
   }, [])
