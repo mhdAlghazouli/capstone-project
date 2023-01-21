@@ -12,18 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Follows.belongsTo(models.User, {
-        foreignKey: 'followerId',
-        as: 'follower'
+        foreignKey: "followerId",
+        as:  "follower"
       });
       Follows.belongsTo(models.User, {
-        foreignKey: 'followedId',
-        as: 'followed'
+        foreignKey: "followedId",
+        as: "followed"
       });
     }
   }
   Follows.init({
     followerId: DataTypes.INTEGER,
-    followedId: DataTypes.INTEGER
+    followedId: DataTypes.INTEGER,
+    isFollow: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Follows',

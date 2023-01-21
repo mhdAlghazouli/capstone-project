@@ -10,6 +10,7 @@ const Profile =  () => {
   const [data, setData]= useState(undefined);
   const [followSectionData, setFollowSectionData] = useState([]);
   const [postsData, setPostsData] = useState([]);
+  const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
   //post profile fetch
   async function handleSubmit() {
     await fetch("http://localhost:3000/profile", {
@@ -29,10 +30,11 @@ const Profile =  () => {
   // get followed fetch
   async function handleGetFollow() {
     console.log("useFollow fetch")
-    const response = await fetch("http://localhost:3000/follows", {
+    const response = await fetch("http://localhost:3000/follows/" + loginUser.id, {
       method: "GET",
     });
     const followRes = await response.json();
+    console.log(followRes)
     setFollowSectionData(followRes)
   }
   // get posts fetch

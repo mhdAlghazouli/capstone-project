@@ -15,8 +15,7 @@ const FollowSection = ({ followSectionData }) => {
       setFilteredFollowerData(followSectionData.filter((follower) => followerUser.id === follower.followerId ))
     }
 
-    
-  },[filteredFollowerData]);
+  },[followSectionData]);
 
   // useEffect(() => {
   //   if (!isFetching && !filteredFollowerData) {
