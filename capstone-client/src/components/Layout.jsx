@@ -33,6 +33,7 @@ const Layout = () => {
   function logout(){
     localStorage.clear();
     navigate('/');
+    window.location.reload();
   }
   
   return ( 
