@@ -11,6 +11,7 @@ const Profile =  () => {
   const [followSectionData, setFollowSectionData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
+  console.log(followSectionData)
   //post profile fetch
   async function handleSubmit() {
     await fetch("http://localhost:3000/profile", {
@@ -26,7 +27,7 @@ const Profile =  () => {
       setData(userRes)
     }) 
   }
-  console.log(postsData)
+
   // get followed fetch
   async function handleGetFollow() {
     console.log("useFollow fetch")
@@ -34,25 +35,26 @@ const Profile =  () => {
       method: "GET",
     });
     const followRes = await response.json();
-    console.log(followRes)
     setFollowSectionData(followRes)
+   
   }
+
   // get posts fetch
   async function handleGetPosts() {
-    const response = await fetch("http://localhost:3000/posts", {
+    const response = await fetch("http://localhost:3000/posts/" + loginUser.id, {
       method: "GET",
     });
     const postsRes = await response.json();
    
     setPostsData(postsRes)
   }
-  console.log(postsData)
   useEffect(() => {
     handleSubmit()
   }, [])
 
   useEffect(() => {
     handleGetFollow()
+
    }, [])
 
    useEffect(() => {
@@ -74,9 +76,9 @@ return (
         <Col md="6">
           <Posts data={data} setPostsData={setPostsData} />
           {postsData.map(post => (
-            data.data.id === post.userId ? 
+            
             <Post key={post.id} post={post} handleGetPosts={handleGetPosts}/>
-            : null
+            
           ))}
           <FollowedGetPosts followSectionData={followSectionData}/>
         </Col>

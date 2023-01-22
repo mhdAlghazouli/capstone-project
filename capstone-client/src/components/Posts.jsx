@@ -31,6 +31,7 @@ const Posts = ({ data,setPostsData }) => {
       
     });
     const postRes = await response.json();
+    console.log(postRes)
     if(postRes){
       setPostsData((prevState)=>[postRes,...prevState ])
       setTextContent('')

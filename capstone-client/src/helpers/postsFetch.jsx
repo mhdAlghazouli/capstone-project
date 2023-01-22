@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 const usePostsFetch = () => {
 
   const [postsData, setPostsData] = useState([]);
-
+  const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
   // get followed fetch
   async function handleGetPosts() {
-    const response = await fetch("http://localhost:3000/posts", {
+    const response = await fetch("http://localhost:3000/posts/" + loginUser.id, {
       method: "GET",
     });
     const postsRes = await response.json();

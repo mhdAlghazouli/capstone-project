@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Likes from "./Likes";
+import UnLikes from "./UnLikes";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,11 +11,14 @@ import { RxDotsHorizontal } from "react-icons/rx";
 import moment from 'moment';
 
 export const Post = ({post, handleGetPosts})=>{
-  console.log(post)
+console.log(post)
   const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
   const [isShowIconWindowOpen, setIsShowIconWindowOpen] = useState(false);
   const [newImage, setNewImage] = useState("");
   const [newTextContent, setNewTextContent] = useState("");
+  const [likesCount, setLikesCount] = useState(post.Likes ? post.Likes.length : 0);
+  const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
+  
   
   const toggleShowIconsWindowOpen = () => {
     if(isShowIconWindowOpen) {
@@ -33,8 +38,12 @@ export const Post = ({post, handleGetPosts})=>{
 
   //handle Delete
 async function handleDelete(id) {
+  
   const response = await fetch(`http://localhost:3000/posts/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
   });
   await response.json();
   handleGetPosts()
@@ -66,10 +75,10 @@ async function handleEdit(){
 
   return <Card  className="mb-2" style={{"width": "100%", "boxShadow": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"}}>
           <Card.Body>
-            <Row className="">
+            <Row >
               <Col md="8" >
-                <Card.Text className="d-flex ">
-                  {post.User.userName}
+                <Card.Text className="d-flex " style={{"textAlign": "start"}}>
+                  {loginUser.userName}
                   <br />
                   {moment(post.createdAt).fromNow()}
                 </Card.Text>
@@ -101,6 +110,21 @@ async function handleEdit(){
               <Form.Control placeholder="Add a text" onChange={(e) => setNewTextContent(e.target.value)}/>
               <Button value={post.id}  variant="warning" type="submit" onClick={handleEdit}>Update</Button>
             </div>}
+            <Row>
+              <Col className="d-flex justify-content-start">
+                <Row >
+                  <Col>
+                    <Likes post={post} setLikesCount={setLikesCount}/>
+                  </Col>
+                  <Col>
+                    <UnLikes post={post} setLikesCount={setLikesCount}/>
+                  </Col>
+                </Row>
+              </Col>
+              <Col className="d-flex justify-content-end align-items-center">
+                {likesCount} like
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
 }
