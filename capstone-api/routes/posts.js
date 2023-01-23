@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { Posts, User, Likes } = require("../models");
+const { Posts, User, Likes, Comments } = require("../models");
 
 //posts route post
 router.post("/", async (req,res,next) => {
@@ -24,6 +24,14 @@ router.get("/:id", async (req,res,next) => {
     {
       model: Likes,
       attributes:["userId","postId"]
+    },
+    {
+      model: Comments,
+      attributes: ["id","commentText", "userId", "postId"],
+      include: [{
+        model: User,
+        attributes: ["firstName","lastName", "userName"]
+      }]
     }
   ],
     order: [["createdAt", "DESC"]]
@@ -41,6 +49,11 @@ router.delete("/:id", async (req,res,next) => {
             postId: id
         }
     });
+    await Comments.destroy({
+      where: {
+        postId: id
+      }
+    })
     await Posts.destroy({ where: { id } });
     res.json({ message: 'Post deleted successfully' });
   } catch (error) {
