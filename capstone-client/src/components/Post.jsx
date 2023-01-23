@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image'
 import { RiDeleteBin7Line, RiEditLine } from "react-icons/ri";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { AiOutlineComment } from "react-icons/ai";
@@ -100,10 +101,10 @@ async function handleEdit(){
                 </Card.Text>
                 
               </Col>
-              <Col md="4" className="d-flex justify-content-end align-items-start">
+              <Col md="4" className="d-flex justify-content-end align-items-start ">
                
                   
-                    <Button variant="warning" value={post.id} onClick={toggleShowIconsWindowOpen}>
+                    <Button className="mx-4" variant="warning" value={post.id} onClick={toggleShowIconsWindowOpen}>
                       <RxDotsHorizontal />
                     </Button>
                   
@@ -113,7 +114,7 @@ async function handleEdit(){
                 
                 {isShowIconWindowOpen && 
                 <Row > 
-                  <Col>
+                  <Col >
                     <Button variant="warning" value={post.id} onClick={() => handleDelete(post.id)}>
                       <RiDeleteBin7Line />
                     </Button>
@@ -127,11 +128,19 @@ async function handleEdit(){
                 
               </Col>
             </Row>
-            <Row>
+            <Row className="mt-2 mb-2">
               <Col>
-                <Card.Text>
-                  {post.textContent}
-                </Card.Text>
+              {post.image !== "" ? <Card.Img src={`http://localhost:3000${post.image.split('').slice(6).join("")}`} /> : null}
+              </Col>
+            </Row>
+            <Row className="mb-2">
+              <Col>
+                  <Card.Text >
+
+                    {post.textContent}
+                  </Card.Text>
+                  
+                
               </Col>
             </Row>
             {isEditWindowOpen && <div id="content-div-1" className="mt-2 content-div-1" value={post.id}>

@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import { AiOutlineComment } from "react-icons/ai";
 
 const FollowPost = ({post}) => {
+ 
   const [likesCount, setLikesCount] = useState( post.Likes ? post.Likes.length : 0);
   const [commentsCount, setCommentsCount] = useState(post.Comments ? post.Comments.length : 0);
   const [isCommentsWindowOpen, setIsCommentsWindowOpen] = useState(false);
@@ -38,6 +39,11 @@ const FollowPost = ({post}) => {
                   </Col>
 
                 </Row>
+                <Row className="mt-2 mb-2">
+              <Col>
+              {post.image !== "" ? <Card.Img src={`http://localhost:3000${post.image.split('').slice(6).join("")}`} /> : null}
+              </Col>
+            </Row>
                 <Row>
                   <Col>{post.textContent}</Col>
                 </Row>
