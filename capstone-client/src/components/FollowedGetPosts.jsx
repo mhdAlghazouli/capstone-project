@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
-import Card from 'react-bootstrap/Card';
-import Likes from "./Likes";
-import UnLikes from "./UnLikes";
 import FollowPost from "./FollowPost";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import moment from 'moment';
+
 
 
 
