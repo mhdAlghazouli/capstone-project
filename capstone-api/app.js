@@ -21,6 +21,7 @@ var profileRouter = require('./routes/profile');
 var postRouter = require('./routes/posts');
 var followRouter = require('./routes/follows');
 var likeRouter = require('./routes/likes');
+var commentRouter = require('./routes/comments');
 
 
 var app = express();
@@ -38,5 +39,6 @@ app.use('/profile', profileRouter);
 app.use('/posts', postRouter);
 app.use('/follows', followRouter);
 app.use('/likes', likeRouter);
+app.use('/comments', commentRouter);
 
 module.exports = app;
