@@ -1,11 +1,42 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer')
+var path = require('path');
 const { Posts, User, Likes, Comments } = require("../models");
 
+//upload image controller
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/Images/')
+  },
+  filename: (req, file, cb) => {
+    const fileName = `${Date.now()}_${file.originalname.replace(/\s+/g, '-')}`
+    cb(null, fileName)
+  }
+});
+
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: '1000000'},
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/
+    const mimeType = fileTypes.test(file.mimetype)
+    const extname = fileTypes.test(path.extname(file.originalname))
+
+    if(mimeType && extname){
+      return cb(null, true)
+    }
+    cb('Give proper files formate to upload')
+  }
+})
+
+
 //posts route post
-router.post("/", async (req,res,next) => {
-  const {image, textContent, userId} = req.body;
-  const post = await Posts.create({image: image, textContent: textContent, userId: userId });
+router.post("/",upload.single('image'), async (req,res,next) => {
+  const { textContent, userId} = req.body;
+  const { file } = req;
+  console.log("file:",file)
+  const post = await Posts.create({image:(file && file.path || null) , textContent: textContent, userId: userId });
   res.json(post);
 });
 //posts route get
@@ -40,6 +71,7 @@ router.get("/:id", async (req,res,next) => {
   
   res.json(posts)
 });
+
 //posts route delete
 router.delete("/:id", async (req,res,next) => {
   try {
