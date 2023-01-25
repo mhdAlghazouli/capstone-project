@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Posts, {
         foreignKey: "userId"
       });
-      
+      User.hasMany(models.Follows, { 
+        foreignKey: "followerId",
+        foreignKey: "followedId"
+      });
     }
   }
   User.init({

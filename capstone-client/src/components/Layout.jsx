@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -17,6 +19,7 @@ const Layout = () => {
       method: "GET",
     });
     const usersRes = await response.json();
+    console.log(usersRes)
     if(loginUser){
 
       setUsersData(usersRes.user.filter(user => loginUser.id !== user.id))
@@ -25,7 +28,10 @@ const Layout = () => {
     }
    }
    useEffect( () => {
-    handleClick()
+     setTimeout(() => {
+       handleClick()
+
+     }, 5000)
    },[])
 
 
@@ -39,20 +45,37 @@ const Layout = () => {
   return ( 
     <Navbar bg="warning" className="mb-3">
       <Container>
-        <Navbar.Brand href="#" className="text-white">DuckQuack</Navbar.Brand>
+        <Col md="2" className="d-flex justify-content-start align-items-center">
+        
+        <Navbar.Brand as={Link} to="/profile" className="text-white">Quacker</Navbar.Brand>
+        </Col>
             {localStorage.getItem("jwt") ? null : 
-          <Navbar.Collapse id="responsive-navbar-nav" className="d-flex justify-content-end">
-              <Nav className="d-flex justify-content-end">
-                <Nav.Link as={Link} to="/" className="text-white">Login</Nav.Link>
-                <Nav.Link  as={Link} to="/signup" className="text-white">Sign up</Nav.Link>
-              </Nav>
-             </Navbar.Collapse >
+            <Col className="d-flex justify-content-end">
+              
+                  <Nav >
+                    <Nav.Link as={Link} to="/" className="text-white">Login</Nav.Link>
+                    <Nav.Link  as={Link} to="/signup" className="text-white">Sign up</Nav.Link>
+                  </Nav>
+               
+            
+            </Col>
             }
             {localStorage.getItem("jwt") ? 
-            <Navbar.Collapse id="responsive-navbar-nav" className="d-flex justify-content-between">
-              <SearchDucks usersData={usersData}/>
-              <Nav.Link onClick={logout} className="text-white">Logout</Nav.Link>
-            </Navbar.Collapse>
+            <Col className="d-flex ">
+              
+                  <Col md="10" className="d-flex justify-content-center align-items-center">
+                    <SearchDucks  usersData={usersData}/>
+                  </Col >
+            
+            
+                  <Col className="d-flex justify-content-end align-items-center">
+                    <Nav.Link onClick={logout} className="text-white">Logout</Nav.Link>
+
+                  </Col>
+           
+            
+            </Col>
+            
             : null}
         </Container>
       </Navbar>

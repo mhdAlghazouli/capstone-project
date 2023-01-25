@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Follow from "./Follow";
 import FollowProfilePost from "./FollowProfilePost";
 import usePostsFetch from "../helpers/postsFetch";
+import Button from 'react-bootstrap/Button';
+
 
 
 
@@ -13,9 +15,9 @@ const SearchUserProfile = () => {
   
   const { id } = useParams()
   const [data, setData] = useState(undefined);
-  const { postsData, handleGetPosts } = usePostsFetch()
-  const loginUser = JSON.parse(window.localStorage.getItem("UserContext"))
-  console.log(loginUser)  
+  const { postsData, handleGetPosts } = usePostsFetch("http://localhost:3000/posts/" + id)
+  
+console.log(postsData) 
   //get user fetch
   async function handleSubmit() {
     const response = await fetch("http://localhost:3000/profile/" + id, {
@@ -38,11 +40,11 @@ const SearchUserProfile = () => {
   return ( 
     <div>
       <Container> 
-        <p style={{"textAlign": "center"}}><b>{data.oneUser && data.oneUser.userName}</b> Quack</p>
-        <Follow className="m-3" data={data}/>
+        <p style={{"textAlign": "center"}}><b>{data.oneUser[0] && data.oneUser[0].userName}</b> Quack</p>
+         <Follow className="m-3" data={data}  />
         {postsData && postsData.map(post => (
-          data.oneUser.id === post.userId ? <FollowProfilePost key={post.id} post={post} handleGetPosts={handleGetPosts}/>
-          : null
+           <FollowProfilePost key={post.id} post={post} handleGetPosts={handleGetPosts}/>
+          
         ))}
       </Container>
     </div>

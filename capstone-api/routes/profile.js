@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require("jsonwebtoken");
-const { User } = require("../models");
+const { User, Follows } = require("../models");
 
 router.post("/", async (req,res,next) => {
   
@@ -28,7 +28,15 @@ router.post("/", async (req,res,next) => {
 //get profile
 router.get("/:id", async (req,res,next) => {
   const { id } = req.params
-  const oneUser = await User.findByPk(id);
+  const oneUser = await User.findAll({
+    where: {
+      id: id
+    },
+    include: [{
+      model: Follows,
+      attributes: ["isFollow"]
+    }]
+  });
   res.json({oneUser, id:id})
 })
 

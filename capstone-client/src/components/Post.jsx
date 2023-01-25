@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 import { RiDeleteBin7Line, RiEditLine } from "react-icons/ri";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { AiOutlineComment } from "react-icons/ai";
@@ -19,7 +19,6 @@ console.log(post)
   const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
   const [isShowIconWindowOpen, setIsShowIconWindowOpen] = useState(false);
   const [isCommentsWindowOpen, setIsCommentsWindowOpen] = useState(false);
-  const [newImage, setNewImage] = useState("");
   const [newTextContent, setNewTextContent] = useState("");
   const [likesCount, setLikesCount] = useState(post.Likes ? post.Likes.length : 0);
   const [commentsCount, setCommentsCount] = useState(post.Comments ? post.Comments.length : 0);
@@ -71,7 +70,6 @@ async function handleDelete(id) {
 async function handleEdit(){
   const updatedPost = {
     id: post.id,
-    image: newImage,
     textContent: newTextContent,
     
   }
@@ -93,15 +91,21 @@ async function handleEdit(){
   return <Card  className="mb-2" style={{"width": "100%", "boxShadow": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"}}>
           <Card.Body>
             <Row >
-              <Col md="8" >
-                <Card.Text className="d-flex " style={{"textAlign": "start"}}>
-                  {loginUser.userName}
-                  <br />
-                  {moment(post.createdAt).fromNow()}
-                </Card.Text>
+              
                 
-              </Col>
-              <Col md="4" className="d-flex justify-content-end align-items-start ">
+                
+                <Col md="7" className="d-flex">
+                  <Image src="https://icon2.cleanpng.com/20180208/zge/kisspng-duck-cartoon-small-yellow-duck-cartoon-vector-5a7cef146cd675.8736460015181371084458.jpg" fluid style={{"width": "10%","borderRadius": "50%" }} />
+                  <Card.Text className="d-flex px-3" style={{"textAlign": "start", "color": "#777"}}>
+                    {loginUser.userName}
+                    <br />
+                    {moment(post.createdAt).fromNow()}
+                  </Card.Text>
+                  
+                </Col>
+
+              
+              <Col md="5" className="d-flex justify-content-end align-items-start ">
                
                   
                     <Button className="mx-4" variant="warning" value={post.id} onClick={toggleShowIconsWindowOpen}>
@@ -130,7 +134,7 @@ async function handleEdit(){
             </Row>
             <Row className="mt-2 mb-2">
               <Col>
-              {post.image !== "" ? <Card.Img src={`http://localhost:3000${post.image.split('').slice(6).join("")}`} /> : null}
+              {post.image !== null ? <Card.Img src={`http://localhost:3000${post.image && post.image.split('').slice(6).join("")}`} /> : null}
               </Col>
             </Row>
             <Row className="mb-2">
@@ -144,7 +148,6 @@ async function handleEdit(){
               </Col>
             </Row>
             {isEditWindowOpen && <div id="content-div-1" className="mt-2 content-div-1" value={post.id}>
-              <Form.Control type="file" placeholder="Add image" onChange={(e) => setNewImage(e.target.value)}/>
               <Form.Control placeholder="Add a text" onChange={(e) => setNewTextContent(e.target.value)}/>
               <Button value={post.id}  variant="warning" type="submit" onClick={handleEdit}>Update</Button>
             </div>}
@@ -165,17 +168,17 @@ async function handleEdit(){
                 </Row>
               </Col>
               <Col className="d-flex justify-content-end align-items-center ">
-                <div className="mx-3">
+                <div className="mx-3" style={{"color": "#777"}}>
                   {likesCount} likes
                 </div>
-                <div>
+                <div style={{"color": "#777"}}>
                   {commentsCount} comments
                 </div>
               </Col>
             </Row>
             <Row>
               <Col>
-                {commentData &&  isCommentsWindowOpen ? <GetComment commentData={commentData}/>: null}
+                {commentData &&  isCommentsWindowOpen ? <GetComment post={post} setCommentsCount={setCommentsCount} setCommentData={setCommentData} commentData={commentData}/>: null}
               </Col>
             </Row>
             <Row className="mt-3">

@@ -37,7 +37,7 @@ const Comment = ({ post, setIsCommentsWindowOpen, setCommentsCount, setCommentDa
       <Form.Group className="d-flex justify-content-start">        
         <Form.Control placeholder="Add a comment" value={commentText}  onChange={(e) => setCommentText(e.target.value)} />
         <Button variant="warning" type="submit" onClick={handlePostComment}>Comment Quack</Button>   
-        </Form.Group>
+      </Form.Group>
    </div>
   )
 }

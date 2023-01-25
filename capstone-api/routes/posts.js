@@ -61,8 +61,13 @@ router.get("/:id", async (req,res,next) => {
       attributes: ["id","commentText", "userId", "postId"],
       include: [{
         model: User,
-        attributes: ["firstName","lastName", "userName"]
-      }]
+        attributes: ["id","firstName","lastName", "userName"]
+      },
+      {
+        model: Posts,
+        attributes: ["id","userId"]
+      }
+    ]
     }
   ],
     order: [["createdAt", "DESC"]]
@@ -98,7 +103,6 @@ router.delete("/:id", async (req,res,next) => {
 router.put("/", async (req,res,next) => {
   const { id, image, textContent, userId } = req.body;
   const updatedPost = await Posts.update({
-    image: image,
     textContent: textContent
   },{
     where: {

@@ -29,7 +29,7 @@ const SearchDucks = ({ usersData }) => {
     <div >
     <Row className='search-container'>
       <Col>
-        <Form className="d-flex">
+        <Form className="">
           <Form.Control
             type="search"
             placeholder="Search"

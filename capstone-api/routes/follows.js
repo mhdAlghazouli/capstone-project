@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const { User, Follows, Posts, Likes } = require("../models");
+const { User, Follows, Posts, Likes, Comments } = require("../models");
 
 //follows post route
 router.post("/", async (req, res, next) => {
-  const {followerId, followedId} = req.body;
+  const {followerId, followedId, isFollow} = req.body;
   const [follow, created] = await Follows.findOrCreate({where: {
     followerId: followerId,
     followedId: followedId,
+
   },
     include: [{
       model: User,
@@ -49,11 +50,30 @@ router.get("/:id", async (req,res, next) => {
             attributes: ["firstName", "lastName", "userName", "email"],
             include:[{
               model: Posts,
-              attributes: ["id","image","textContent","userId"],
+              attributes: ["id","image","textContent","userId","createdAt","updatedAt"],
               include:[{
                 model: Likes,
                 attributes: ["userId","postId"]
               },
+              {
+                model: Comments,
+                attributes: ["id", "commentText", "userId", "postId"],
+                include: [{
+                  model: User,
+                  attributes: ["id", "firstName", "lastName", "userName"]
+                },
+                {
+                  model: Posts,
+                  attributes: ["id"],
+                  include: [{
+                    model: User,
+                    attributes: ["id","userName"]
+                  }]
+                }],
+                
+              
+              },
+
               {
                 model: User,
               }

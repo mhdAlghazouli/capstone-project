@@ -1,24 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 
 const Follow = ({ data }) => {
   let  id  = data.id
+  console.log(data)
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
-  const [isFollow, setIsFollow] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isFollow, setIsFollow] = useState(false)
+  const navigate = useNavigate();
   
-  // const toggleFollowUnFollow = () => {
-  //   if(isFollow){
-  //     setIsFollow(false)
-  //   } else {
-  //     setIsFollow(true)
-  //   }
-  // }
- 
  
    
     async function handleFollow() {
-      
+      setIsFollow(true)
       let follow = {
         followerId : loginUser.id,
         followedId: id
@@ -34,15 +29,24 @@ const Follow = ({ data }) => {
         });
         const followRes = await response.json();
         console.log(followRes)
-        setIsFollow(true)
         if(followRes.msg === "new connection"){
           
           alert(`${loginUser.userName} now following ${id}`)
+          navigate('/profile')
           
         }else{
           alert(`${followRes.msg}.`)
         }
+        
       }
+      // useEffect(() => {
+      //   if(data.oneUser[0].Follows.length !== 0){
+      //     setIsDisabled(true)
+      //   }else{
+      //     setIsDisabled(false)
+      //   }
+
+      // },[])
       
       async function handleUnFollow() {
         let unFollow = {
@@ -58,14 +62,17 @@ const Follow = ({ data }) => {
         });
         await response.json()
         alert("you unfollowed this user")
+        navigate('/profile')
       }
  
-
 
  
   return ( 
     <div className="d-flex justify-content-center">
-      {isFollow? <Button id="followBtn" variant="warning" onClick={handleUnFollow}>unFollow</Button> :  <Button id="followBtn" variant="warning" onClick={handleFollow} >Follow</Button>}
+       {/* <Button id="followBtn" variant="warning" onClick={handleUnFollow} disabled={!isDisabled}>unFollow</Button>    */}
+       
+       <Button id="followBtn" variant="warning" onClick={handleFollow} disabled={isDisabled} >Follow</Button>
+         
         
        
       

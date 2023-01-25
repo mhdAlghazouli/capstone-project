@@ -71,7 +71,7 @@ return (
     <div> 
       <Row className="justify-content-md-between">
         <Col xs lg="3">
-          <FollowSection followSectionData={followSectionData} />
+          
         </Col>
         <Col md="6">
           <Posts data={data} setPostsData={setPostsData} />
@@ -83,7 +83,7 @@ return (
           <FollowedGetPosts followSectionData={followSectionData}/>
         </Col>
         <Col xs lg="3">
-        
+          <FollowSection followSectionData={followSectionData} />
         </Col>
       </Row>
     </div>

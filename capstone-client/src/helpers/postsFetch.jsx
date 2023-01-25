@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-const usePostsFetch = () => {
+const usePostsFetch = (url) => {
 
   const [postsData, setPostsData] = useState([]);
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
   // get followed fetch
   async function handleGetPosts() {
-    const response = await fetch("http://localhost:3000/posts/" + loginUser.id, {
+    const response = await fetch(url, {
       method: "GET",
     });
     const postsRes = await response.json();
@@ -17,7 +17,7 @@ const usePostsFetch = () => {
     if(postsData.length === 0){
       handleGetPosts()  
     }
-  },[])
+  },[url])
    return { postsData, setPostsData, handleGetPosts }
 }
 
