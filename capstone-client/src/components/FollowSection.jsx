@@ -11,7 +11,7 @@ const FollowSection = ({ followSectionData }) => {
 
   const [filteredFollowerData, setFilteredFollowerData] = useState([]);
   const followerUser = JSON.parse(window.localStorage.getItem("UserContext"));
-console.log(followSectionData)
+
   
   useEffect(() => {
     if(filteredFollowerData.length === 0){

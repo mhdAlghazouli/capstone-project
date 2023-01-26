@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useNavigate } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 import { useState, useEffect } from 'react';
 
 
@@ -13,48 +13,38 @@ import { useState, useEffect } from 'react';
 const Layout = () => {  
   const [usersData, setUsersData] = useState([]);
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
-
-   async function handleClick() {
+  async function handleClick() {
     const response = await fetch("http://localhost:3000/users", {
       method: "GET",
     });
     const usersRes = await response.json();
-    console.log(usersRes)
     if(loginUser){
 
-      setUsersData(usersRes.user.filter(user => loginUser.id !== user.id))
+      setUsersData(usersRes.user.filter(user => loginUser && loginUser.id !== user.id))
     }else{
       return ;
     }
    }
    useEffect( () => {
      setTimeout(() => {
-       handleClick()
-
+      handleClick()
      }, 5000)
    },[])
 
-
-  const navigate = useNavigate();
-  function logout(){
-    localStorage.clear();
-    navigate('/');
-    window.location.reload();
-  }
   
   return ( 
-    <Navbar bg="warning" className="mb-3">
+    <Navbar  className="mb-3">
       <Container>
         <Col md="2" className="d-flex justify-content-start align-items-center">
         
-        <Navbar.Brand as={Link} to="/profile" className="text-white">Quacker</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/profile" className="text-warning">Quacker</Navbar.Brand>
         </Col>
             {localStorage.getItem("jwt") ? null : 
             <Col className="d-flex justify-content-end">
               
                   <Nav >
-                    <Nav.Link as={Link} to="/" className="text-white">Login</Nav.Link>
-                    <Nav.Link  as={Link} to="/signup" className="text-white">Sign up</Nav.Link>
+                    <Nav.Link as={Link} to="/" className="text-warning">Login</Nav.Link>
+                    <Nav.Link  as={Link} to="/signup" className="text-warning">Sign up</Nav.Link>
                   </Nav>
                
             
@@ -69,8 +59,8 @@ const Layout = () => {
             
             
                   <Col className="d-flex justify-content-end align-items-center">
-                    <Nav.Link onClick={logout} className="text-white">Logout</Nav.Link>
-
+                  <Image className="mx-3" src="https://icon2.cleanpng.com/20180208/zge/kisspng-duck-cartoon-small-yellow-duck-cartoon-vector-5a7cef146cd675.8736460015181371084458.jpg" fluid style={{"width": "20%","borderRadius": "50%" }} />
+                    <b className="text-warning">{loginUser && loginUser.userName}</b>
                   </Col>
            
             
@@ -83,3 +73,4 @@ const Layout = () => {
 }
  
 export default Layout;
+

@@ -3,15 +3,13 @@ import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 
 const Follow = ({ data }) => {
+
   let  id  = data.id
-  console.log(data)
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
   const [isDisabled, setIsDisabled] = useState(false);
   const [isFollow, setIsFollow] = useState(false)
   const navigate = useNavigate();
   
- 
-   
     async function handleFollow() {
       setIsFollow(true)
       let follow = {
@@ -28,7 +26,6 @@ const Follow = ({ data }) => {
          body: JSON.stringify(follow)
         });
         const followRes = await response.json();
-        console.log(followRes)
         if(followRes.msg === "new connection"){
           
           alert(`${loginUser.userName} now following ${id}`)

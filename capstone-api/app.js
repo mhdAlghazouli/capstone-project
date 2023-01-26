@@ -27,6 +27,7 @@ var postRouter = require('./routes/posts');
 var followRouter = require('./routes/follows');
 var likeRouter = require('./routes/likes');
 var commentRouter = require('./routes/comments');
+var productRouter = require('./routes/products');
 
 
 var app = express();
@@ -48,6 +49,7 @@ app.use('/posts', postRouter);
 app.use('/follows', followRouter);
 app.use('/likes', likeRouter);
 app.use('/comments', commentRouter);
+app.use('/products', productRouter);
 
 
 

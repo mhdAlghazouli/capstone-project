@@ -6,18 +6,12 @@ import FollowProfilePost from "./FollowProfilePost";
 import usePostsFetch from "../helpers/postsFetch";
 import Button from 'react-bootstrap/Button';
 
-
-
-
-
-
 const SearchUserProfile = () => {
   
   const { id } = useParams()
   const [data, setData] = useState(undefined);
   const { postsData, handleGetPosts } = usePostsFetch("http://localhost:3000/posts/" + id)
   
-console.log(postsData) 
   //get user fetch
   async function handleSubmit() {
     const response = await fetch("http://localhost:3000/profile/" + id, {
@@ -31,7 +25,6 @@ console.log(postsData)
   useEffect(() => {
     handleSubmit() 
   }, [id])
-  console.log(data)
 
   if(!data){
     return null;

@@ -11,12 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [id, setId] = useState("")
   const {setUser} = useContext(UserContext);
- 
-  
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    
     e.preventDefault();
     let user = {
       id: id,
@@ -37,20 +34,16 @@ const Login = () => {
         id: userRes.data.id, 
         firstName: userRes.data.firstName, 
         lastName: userRes.data.lastName, 
-        userName: userRes.data.userName
+        userName: userRes.data.userName,
+        email: userRes.data.email,
       })
-
+      
       alert("login successful");
       window.localStorage.setItem("jwt", userRes.data.jwt)
       navigate('/profile')
     }
-    
   }
   
- 
-
-
-
   return ( 
     
       

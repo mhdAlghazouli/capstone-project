@@ -40,4 +40,22 @@ router.get("/:id", async (req,res,next) => {
   res.json({oneUser, id:id})
 })
 
+//user route edit
+router.put("/:id", async (req,res,next) => {
+  const { id } = req.params;
+  const {firstName, lastName, userName, email} = req.body
+  const updatedUser = await User.update({
+    firstName : firstName,
+    lastName: lastName,
+    userName: userName,
+    email: email
+  },
+  {
+    where: {
+      id: id
+    }
+  })
+  res.json(updatedUser)
+})
+
 module.exports = router;

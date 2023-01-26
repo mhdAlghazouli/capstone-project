@@ -5,10 +5,16 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
 import SearchUserProfile from './components/SearchUserProfile';
+import EditProfile from './components/EditProfile';
+import MarketPlace from './components/MarketPlace';
+import MarketPlaceAddProduct from './components/MarketPlaceAddProduct';
+import MarketPlaceAllProducts from './components/MarketPlaceAllProduct';
+import MarketPlaceMyProducts from './components/MarketPlaceMyProducts';
 import { UserContextProvider } from './contexts/user.context';
 
 
-function App() {
+ function App() {
+  
   
   return (
     <div className="App">
@@ -17,10 +23,14 @@ function App() {
           <Header  />
             <Switch>
               <Route path='/' element={<Login />} />
-              {/* <Route path='/login' element={<Login />} /> */}
               <Route path='/signup' element={<Signup />} />
               <Route path='/profile' element={<Profile />} />
               <Route exact path='/profile/:id' element={<SearchUserProfile />} />
+              <Route path="/editProfile" element={<EditProfile />}/>
+              <Route path="/MarketPlace" element={<MarketPlace />}/>
+              <Route path="/MarketPlaceAddProduct" element={<MarketPlaceAddProduct />}/>
+              <Route path="/MarketPlaceAllProducts" element={<MarketPlaceAllProducts />}/>
+              <Route path="/MarketPlaceMyProducts" element={<MarketPlaceMyProducts />}/>
             </Switch>   
         </UserContextProvider>
     </div>

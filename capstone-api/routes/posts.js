@@ -104,7 +104,8 @@ router.put("/", async (req,res,next) => {
   const { id, image, textContent, userId } = req.body;
   const updatedPost = await Posts.update({
     textContent: textContent
-  },{
+  },
+  {
     where: {
       id: id
     }

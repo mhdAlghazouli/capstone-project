@@ -3,15 +3,17 @@ import Posts from "./Posts";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Post } from "./Post";
+import LeftSection from "./LeftSection";
 import FollowSection from "./FollowSection";
 import FollowedGetPosts from "./FollowedGetPosts";
+
 
 const Profile =  () => {
   const [data, setData]= useState(undefined);
   const [followSectionData, setFollowSectionData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
-  console.log(followSectionData)
+ 
   //post profile fetch
   async function handleSubmit() {
     await fetch("http://localhost:3000/profile", {
@@ -27,10 +29,9 @@ const Profile =  () => {
       setData(userRes)
     }) 
   }
-
   // get followed fetch
   async function handleGetFollow() {
-    console.log("useFollow fetch")
+
     const response = await fetch("http://localhost:3000/follows/" + loginUser.id, {
       method: "GET",
     });
@@ -71,7 +72,7 @@ return (
     <div> 
       <Row className="justify-content-md-between">
         <Col xs lg="3">
-          
+          <LeftSection />
         </Col>
         <Col md="6">
           <Posts data={data} setPostsData={setPostsData} />

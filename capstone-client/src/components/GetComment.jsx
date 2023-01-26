@@ -14,7 +14,7 @@ const GetComment = ({ commentData, setCommentData, setCommentsCount }) => {
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
   const [newCommentText, setNewCommentText] = useState("");
   const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
-  console.log(commentData)
+
 
   async function handleDelete(id) {
     const deleteResponse = await fetch(`http://localhost:3000/comments/${id}`, {

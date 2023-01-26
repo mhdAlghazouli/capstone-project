@@ -12,15 +12,10 @@ const Posts = ({ data,setPostsData }) => {
     document.getElementById("content-div").style.display = "block";
     document.getElementById("show-content-btn").style.display = "none";
   }
-  
+ 
   //post a quack fetch
   async function handleSubmitPost(e){
     e.preventDefault();
-    // const post = {
-    //   image: image,
-    //   textContent: textContent,
-    //   userId: data.data.id
-    // }
 
     const formData = new FormData();
     formData.append('image', image)

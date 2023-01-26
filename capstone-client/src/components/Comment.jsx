@@ -22,7 +22,6 @@ const Comment = ({ post, setIsCommentsWindowOpen, setCommentsCount, setCommentDa
       body: JSON.stringify(comment)
     });
     const commentResponse = await response.json();
-    console.log(commentResponse)
     if(commentResponse){
       setCommentText("")
       setIsCommentsWindowOpen(false)

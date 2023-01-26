@@ -1,12 +1,12 @@
 import Layout from "./Layout"
-import ThemeContext from "../index"
+import { UserContext } from '../contexts/user.context';
 import { useState, useEffect, useContext } from 'react';
 
-const Header = (props) => {
-  // const { value } = useContext(ThemeContext)
+const Header = () => {
+  const {user} = useContext(UserContext);
   return ( 
     <>
-      <Layout data={props.data}/>
+      <Layout user={user}/>
     </>
    );
 }

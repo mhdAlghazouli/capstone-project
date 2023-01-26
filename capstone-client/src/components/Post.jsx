@@ -15,7 +15,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import moment from 'moment';
 
 export const Post = ({post, handleGetPosts})=>{
-console.log(post)
+
   const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
   const [isShowIconWindowOpen, setIsShowIconWindowOpen] = useState(false);
   const [isCommentsWindowOpen, setIsCommentsWindowOpen] = useState(false);
@@ -24,7 +24,7 @@ console.log(post)
   const [commentsCount, setCommentsCount] = useState(post.Comments ? post.Comments.length : 0);
   const [commentData, setCommentData] = useState(post.Comments ? post.Comments : undefined)
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
-  console.log(commentData)
+
   
   const toggleShowIconsWindowOpen = () => {
     if(isShowIconWindowOpen) {

@@ -35,6 +35,7 @@ router.post('/', async function(req, res, next) {
           firstName: user.firstName,
           lastName: user.lastName,
           userName: user.userName,
+          email: user.email,
           jwt: token
         }
         res.json({status: "ok", data})
@@ -85,6 +86,8 @@ router.post("/signup", async function (req, res, next){
   
   
 });
+
+
 
 
 

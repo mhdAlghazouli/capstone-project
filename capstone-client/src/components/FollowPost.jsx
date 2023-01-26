@@ -17,7 +17,7 @@ const FollowPost = ({post}) => {
   const [commentsCount, setCommentsCount] = useState(post.Comments ? post.Comments.length : 0);
   const [isCommentsWindowOpen, setIsCommentsWindowOpen] = useState(false);
   const [commentData, setCommentData] = useState(post.Comments ? post.Comments : undefined)
-console.log(post)
+
   const toggleCommentsWindowOpen = () => {
     if(isCommentsWindowOpen) {
       setIsCommentsWindowOpen(false)
