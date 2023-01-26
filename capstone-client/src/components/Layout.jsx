@@ -3,34 +3,15 @@ import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { useState, useEffect } from 'react';
+
 
 
 
 const Layout = () => {  
-  const [usersData, setUsersData] = useState([]);
+  
   const loginUser = JSON.parse(window.localStorage.getItem("UserContext"));
-  async function handleClick() {
-    const response = await fetch("http://localhost:3000/users", {
-      method: "GET",
-    });
-    const usersRes = await response.json();
-    if(loginUser){
-
-      setUsersData(usersRes.user.filter(user => loginUser && loginUser.id !== user.id))
-    }else{
-      return ;
-    }
-   }
-   useEffect( () => {
-     setTimeout(() => {
-      handleClick()
-     }, 5000)
-   },[])
-
   
   return ( 
     <Navbar  className="mb-3">
@@ -54,7 +35,7 @@ const Layout = () => {
             <Col className="d-flex ">
               
                   <Col md="10" className="d-flex justify-content-center align-items-center">
-                    <SearchDucks  usersData={usersData}/>
+                    <SearchDucks  />
                   </Col >
             
             
