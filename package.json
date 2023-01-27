@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "node ./src/bin/www",
+    "dev": "nodemon ./src/bin/www",
     "build": "cd capstone-api && npm install && npm start && cd .. && cd capstone-client && npm install && npm start"
   },
   "dependencies": {
