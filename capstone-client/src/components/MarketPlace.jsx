@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { ImProfile } from "react-icons/im";
-import { FaStoreAlt,FaHome, FaStore } from "react-icons/fa";
-import { RiLogoutBoxFill } from "react-icons/ri";
+import { FaStoreAlt } from "react-icons/fa";
 import MarketPlaceLeftSide from "./MarketPlaceLeftSide";
-import MarketPlaceAllProducts from "./MarketPlaceAllProduct";
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+
 
 
 const MarketPlace = () => {
@@ -19,8 +15,9 @@ const MarketPlace = () => {
         
      </Col>
      <Col md="9">
-     
-    
+       <Container className="d-flex justify-content-center">
+        <Image src="https://img.freepik.com/premium-photo/funny-illustrated-duck-holding-shopping-bag_183364-36807.jpg?w=2000" style={{"width": "18rem"}} fluid/>
+       </Container>
      </Col>
    </Row>
    );

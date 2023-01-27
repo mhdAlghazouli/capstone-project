@@ -34,11 +34,11 @@ const MarketPlaceAllProducts = () => {
             <Card.Header><b className="text-warning">{moment(product.createdAt).fromNow()}</b></Card.Header>
             <Image variant="top" src={`http://localhost:3000${product.image && product.image.split('').slice(6).join("")}`} style={{"height":"18rem"}} fluid/>
             <ListGroup className="list-group-flush">
-              <ListGroup.Item ><b className="text-warning">posted by: </b>{product.User.firstName} {product.User.lastName}</ListGroup.Item>
-              <ListGroup.Item ><b className="text-warning">title: </b>{product.title}</ListGroup.Item>
-              <ListGroup.Item><b className="text-warning">description: </b>{product.description}</ListGroup.Item>
-              <ListGroup.Item><b className="text-warning">price: </b>${product.price}</ListGroup.Item>
-              <ListGroup.Item><b className="text-warning">Phone Contact: </b>{product.contact}</ListGroup.Item>
+              <ListGroup.Item style={{"color":"#777"}}><b className="text-warning">posted by: </b>{product.User.firstName} {product.User.lastName}</ListGroup.Item>
+              <ListGroup.Item style={{"color":"#777"}}><b className="text-warning">title: </b>{product.title}</ListGroup.Item>
+              <ListGroup.Item style={{"color":"#777"}}><b className="text-warning">description: </b>{product.description}</ListGroup.Item>
+              <ListGroup.Item style={{"color":"#777"}}><b className="text-warning">price: </b>${product.price}</ListGroup.Item>
+              <ListGroup.Item style={{"color":"#777"}}><b className="text-warning">Phone Contact: </b>{product.contact}</ListGroup.Item>
             </ListGroup>
           </Card>
 
